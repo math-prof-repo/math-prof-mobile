@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 
-class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Math-prof v1'
   };
