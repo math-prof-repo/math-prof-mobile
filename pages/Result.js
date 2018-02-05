@@ -15,6 +15,8 @@ export default class Result extends React.Component {
 
   constructor(props) {
     super(props);
+    let result=[{AnswerTime:0,Player:'Player',QuestionCount:0}];
+    this.state={result:result};
 }
 
   componentDidMount(){
@@ -22,8 +24,10 @@ export default class Result extends React.Component {
   }
 
   methodGet(param) {
-    axios.get(param)
+    let self=this;
+    axios.get(param )
       .then((response) => {
+        this.setState({result:response.data});
        console.log(response.data);
       }).catch((error) => {
         console.log(error);
@@ -35,7 +39,7 @@ export default class Result extends React.Component {
   _renderHeader(section) {
     return (
       <View>
-        <Text>{section.title}</Text>
+        <Text style={styles.titleText}>{section.Player}</Text>
       </View>
     );
   }
@@ -43,21 +47,22 @@ export default class Result extends React.Component {
   _renderContent(section) {
     return (
       <View>
-        <Text>{section.content}</Text>
+        <Text>{section.Player}</Text>
       </View>
     );
   }
 
 
   render() {
+    console.log(this.state);
     return (
       <View style={styles.container}>
         
-            <Text>
+          <Text style={styles.headerText}>
               Yarışma Bitti
           </Text> 
           <Accordion
-            sections={SECTIONS}
+            sections={this.state.result}
             renderHeader={this._renderHeader}
             renderContent={this._renderContent}
           />
@@ -73,8 +78,18 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+
+      padding:10,
+      
+    },
+    titleText: {
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
+    headerText: {
+      fontSize: 50,
+      fontWeight: 'bold',
+      padding:10
     },
     gotoQuestions: {
       alignItems: 'center',
@@ -85,14 +100,3 @@ const styles = StyleSheet.create({
     }
   });
   
-
-  const SECTIONS = [
-    {
-      title: 'First',
-      content: 'Lorem ipsum...'
-    },
-    {
-      title: 'Second',
-      content: 'Lorem ipsum...'
-    }
-  ];
