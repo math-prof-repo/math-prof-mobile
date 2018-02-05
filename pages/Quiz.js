@@ -17,11 +17,11 @@ export default class Quiz extends React.Component {
 
 
   componentDidMount() {
-    this.methodGet('http://yeslimit.somee.com/api/values');
+    this.methodGet('http://www.yeslimit.somee.com/api/values');
   }
 
   methodGet(param) {
-    axios.get('http://yeslimit.somee.com/api/values')
+    axios.get(param)
       .then((response) => {
         this.question = response.data;
         this.questionCount = response.data.length;

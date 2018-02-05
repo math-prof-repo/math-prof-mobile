@@ -51,7 +51,7 @@ export default class Login extends React.Component {
                 />
                 <Button
                     onPress={() => {
-                        this.methodPost('http://yeslimit.somee.com/api/user');
+                        this.methodPost('http://www.yeslimit.somee.com/api/user');
                     }}
                     title="Kaydol"
                     color="#841584"

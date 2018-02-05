@@ -30,7 +30,7 @@ class MathProf extends React.Component {
       or
       
     */
-    this.methodGet('http://yeslimit.somee.com/api/user');
+    this.methodGet('http://www.yeslimit.somee.com/api/user');
 
     //this.props.navigation.navigate('Home');
 
