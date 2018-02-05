@@ -33,7 +33,7 @@ export default class Quiz extends React.Component {
   };
   setCevap() {
     if (this.state.soruSayac + 1 == this.questionCount)
-      this.props.navigation.navigate('Result');
+      this.props.navigation.navigate('UserResult',{userResultArray:this.question});
     else {
       var i = this.state.soruSayac;
       this.setState({ soruSayac: i + 1, repos: this.question[i + 1] });

@@ -15,6 +15,7 @@ import {
 } from 'react-navigation';
 import Quiz from './pages/Quiz';
 import Result from './pages/Result';
+import UserResult from './pages/UserResult';
 import HomeScreen from './pages/Home';
 import Login from './pages/Login';
 
@@ -74,6 +75,9 @@ export default StackNavigator({
   },
   Result: {
     screen: Result
+  },
+  UserResult: {
+    screen: UserResult
   },
   Login: {
     screen: Login
