@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 
 
 async function showFirstContactAsync() {
-  // Ask for permission to query contacts.
+  // Ask for permisssion to query contacts.
   console.log(Expo.Constants);
   /*const permission = await Expo.Permissions.askAsync(Expo.Permissions.CONTACTS);
   if (permission.status !== 'granted') {
