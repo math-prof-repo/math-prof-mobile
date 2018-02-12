@@ -19,6 +19,7 @@ export default class Result extends React.Component {
 }
 
   componentDidMount(){
+    this.props.navigation.navigate('Result');
   }
 
 
