@@ -12,6 +12,10 @@ export default class HomeScreen extends React.Component {
     title: 'Math-prof v1'
   };
 
+  componentDidMount() {
+    this.userName = this.props.navigation.state.params.userName;
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -27,7 +31,7 @@ export default class HomeScreen extends React.Component {
   }
 
   _handlePress = () => {
-    this.props.navigation.navigate('Quiz');
+    this.props.navigation.navigate('Quiz', { userName: this.userName });
   }
 }
 

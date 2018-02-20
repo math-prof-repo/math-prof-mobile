@@ -16,22 +16,22 @@ export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { name: '' ,ustbosluk:3};
+        this.state = { name: '', ustbosluk: 3 };
     }
 
     methodPost(param) {
         var self = this;
         let userData = { UserId: Expo.Constants.deviceId, UserName: this.state.name };
-        axios.interceptors.request.use(request => {
+        /*axios.interceptors.request.use(request => {
             console.log('Starting Request', request)
             return request
-        })
+        })*/
 
         axios.post(param,
             userData
         )
             .then(function (response) {
-                console.log(response);
+                //console.log(response);
                 self.props.navigation.navigate('Home');
             })
             .catch(function (error) {
@@ -45,23 +45,23 @@ export default class Login extends React.Component {
         return (
             <View style={styles.container}>
                 <Grid>
-                <Row size={this.state.ustbosluk}>
-                        </Row>
+                    <Row size={this.state.ustbosluk}>
+                    </Row>
                     <Row style={styles.row} size={1}>
                         <Text>
                             User Name
                          </Text>
                     </Row>
                     <Row style={styles.row} size={1}>
-                    <KeyboardAvoidingView style={styles.container}>
-                        <TextInput
-                            placeholder="User Nickname"
-                            onChangeText={(name) => { this.setState({ name }) }}
-                            underlineColorAndroid="transparent"
-                            style={styles.input}
-                            
-                        />
-                          </KeyboardAvoidingView>
+                        <KeyboardAvoidingView style={styles.container}>
+                            <TextInput
+                                placeholder="User Nickname"
+                                onChangeText={(name) => { this.setState({ name }) }}
+                                underlineColorAndroid="transparent"
+                                style={styles.input}
+
+                            />
+                        </KeyboardAvoidingView>
                     </Row>
                     <Row style={styles.row} size={1}>
                         <Button
@@ -73,7 +73,7 @@ export default class Login extends React.Component {
                         />
                     </Row>
                     <Row size={7}>
-                        </Row>
+                    </Row>
                 </Grid>
             </View>
         );
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingLeft:20,
-        paddingRight:20
+        paddingLeft: 20,
+        paddingRight: 20
     },
     input: {
         flex: 1,
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    row:{
-        height: 40 ,
+    row: {
+        height: 40,
         justifyContent: 'center',
         alignItems: 'center',
     }

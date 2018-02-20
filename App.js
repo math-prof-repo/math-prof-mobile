@@ -43,7 +43,7 @@ class MathProf extends React.Component {
         if (response.data.UserId == undefined || response.data.UserId == null || response.data.UserId == null) {
           this.props.navigation.navigate('Login');
         } else {
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('Home',{userName:response.data.UserName});
         }
       }).catch((error) => {
         console.log(error);

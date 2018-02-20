@@ -23,20 +23,37 @@ export default class Result extends React.Component {
 
   componentDidMount() {
     this.methodGet('http://www.yeslimit.somee.com/api/result');
+    this.state = { counter: 10 };
+    this.timer = setInterval(this.tick.bind(this), 1000);
   }
 
   methodGet(param) {
     let self = this;
-    axios.get(param)
+    axios.get(param+"?gameId=0")
       .then((response) => {
         this.setState({ result: response.data, loader: false });
-        console.log(response.data);
       }).catch((error) => {
         console.log(error);
       });
 
   };
 
+
+    
+
+    tick() {
+      if (this.state.counter == 0) {
+        this.stopTimer();
+        this.props.navigation.navigate('Quiz', { userName: this.props.navigation.state.params.userName});
+      }
+      else {
+        this.setState({ counter: (this.state.counter - 1) })
+      }
+    };
+  
+    stopTimer() {
+      clearInterval(this.timer)
+    };
 
   _renderHeader(section) {
     return (
@@ -56,7 +73,6 @@ export default class Result extends React.Component {
 
 
   render() {
-    console.log(this.state);
     if (this.state.loader) {
       return (<View style={styles.container}>
         <Bubbles size={10} color="#FFF" />
