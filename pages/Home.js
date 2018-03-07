@@ -6,6 +6,7 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { NavigationActions } from 'react-navigation';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -31,7 +32,13 @@ export default class HomeScreen extends React.Component {
   }
 
   _handlePress = () => {
-    this.props.navigation.navigate('Quiz', { userName: this.userName });
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Quiz', params:{userName: this.userName}})
+      ]
+    })
+    this.props.navigation.dispatch(resetAction)
   }
 }
 

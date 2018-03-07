@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 var axios = require('axios');
 import Accordion from 'react-native-collapsible/Accordion';
 
@@ -46,7 +47,13 @@ export default class Result extends React.Component {
   tick() {
     if (this.state.counter == 0) {
       this.stopTimer();
-      this.props.navigation.navigate('Result', { userName: this.userName });
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Result', params:{userName:this.userName}})
+        ]
+      })
+      this.props.navigation.dispatch(resetAction)
     }
     else {
       this.setState({ counter: (this.state.counter - 1) })
