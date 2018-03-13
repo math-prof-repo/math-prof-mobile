@@ -6,6 +6,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+import { NavigationActions } from 'react-navigation';
 
 var axios = require('axios');
 import Accordion from 'react-native-collapsible/Accordion';
@@ -44,7 +45,13 @@ export default class Result extends React.Component {
     tick() {
       if (this.state.counter == 0) {
         this.stopTimer();
-        this.props.navigation.navigate('Quiz', { userName: this.props.navigation.state.params.userName});
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Quiz', params:{userName: this.props.navigation.state.params.userName}})
+          ]
+        })
+        this.props.navigation.dispatch(resetAction)
       }
       else {
         this.setState({ counter: (this.state.counter - 1) })

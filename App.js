@@ -82,6 +82,8 @@ export default StackNavigator({
   Login: {
     screen: Login
   }
+},{
+  headerMode: "none"
 });
 
 

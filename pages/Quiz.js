@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, DatePickerIOS, Button, TouchableOpacity } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+
 var axios = require('axios');
 let questionCount = 0;
 export default class Quiz extends React.Component {
@@ -37,7 +39,13 @@ export default class Quiz extends React.Component {
     if (this.state.soruSayac + 1 == this.questionCount) {
       this.stopTimer();
       clearInterval(this.timer);
-      this.props.navigation.navigate('UserResult', { userResultObj: this.question,userName:this.userName });
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'UserResult', params:{userResultObj: this.question,userName:this.userName}})
+        ]
+      })
+      this.props.navigation.dispatch(resetAction)
     }
 
     else {
@@ -65,7 +73,13 @@ export default class Quiz extends React.Component {
   tick() {
     if (this.state.count == 0) {
       this.stopTimer();
-      this.props.navigation.navigate('UserResult', { userResultObj: this.question ,userName:this.userName});
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'UserResult', params:{userResultObj: this.question,userName:this.userName}})
+        ]
+      })
+      this.props.navigation.dispatch(resetAction)
     }
     else {
       this.setState({ count: (this.state.count - 1) })
