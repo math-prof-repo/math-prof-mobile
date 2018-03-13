@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 
-import { NavigationActions } from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
+import styles from '.././styles/style';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -19,7 +15,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.quizContainer}>
         <TouchableOpacity
           style={styles.gotoQuestions}
           onPress={() => this._handlePress()}>
@@ -34,26 +30,16 @@ export default class HomeScreen extends React.Component {
   _handlePress = () => {
     const resetAction = NavigationActions.reset({
       index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: 'Quiz', params:{userName: this.userName}})
-      ]
+      actions: [NavigationActions.navigate({
+          routeName: 'Quiz',
+          params: {
+            userName: this.userName
+          }
+        })]
     })
-    this.props.navigation.dispatch(resetAction)
+    this
+      .props
+      .navigation
+      .dispatch(resetAction)
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  gotoQuestions: {
-    alignItems: 'center',
-    backgroundColor: '#32CD32',
-    width: 250,
-    padding: 10,
-    margin: 5
-  }
-});

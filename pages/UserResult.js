@@ -1,14 +1,9 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {NavigationActions} from 'react-navigation';
 var axios = require('axios');
 import Accordion from 'react-native-collapsible/Accordion';
-
+import styles from '.././styles/style';
 export default class Result extends React.Component {
   static navigationOptions = {
     title: 'Yarışma Bitti mi acaba'
@@ -16,8 +11,16 @@ export default class Result extends React.Component {
 
   constructor(props) {
     super(props);
-    let result = [{ AnswerTime: 0, Player: 'Player', QuestionCount: 0 }];
-    this.state = { counter: 10 };
+    let result = [
+      {
+        AnswerTime: 0,
+        Player: 'Player',
+        QuestionCount: 0
+      }
+    ];
+    this.state = {
+      counter: 10
+    };
   }
 
   componentDidMount() {
@@ -30,12 +33,19 @@ export default class Result extends React.Component {
 
   methodPost(param) {
     var self = this;
-    let userData = { GameId: this.userResultObj.GameId, QuestionCount: this.userResultObj.Questions.filter(x=>x.isTrue=="true").length, Player: this.userName, AnswerTime: 5 };
+    let userData = {
+      GameId: this.userResultObj.GameId,
+      QuestionCount: this
+        .userResultObj
+        .Questions
+        .filter(x => x.isTrue == "true")
+        .length,
+      Player: this.userName,
+      AnswerTime: 5
+    };
 
-
-    axios.post(param,
-      userData
-    )
+    axios
+      .post(param, userData)
       .then(function (response) {
         console.log(response);
       })
@@ -49,14 +59,21 @@ export default class Result extends React.Component {
       this.stopTimer();
       const resetAction = NavigationActions.reset({
         index: 0,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Result', params:{userName:this.userName}})
-        ]
+        actions: [NavigationActions.navigate({
+            routeName: 'Result',
+            params: {
+              userName: this.userName
+            }
+          })]
       })
-      this.props.navigation.dispatch(resetAction)
-    }
-    else {
-      this.setState({ counter: (this.state.counter - 1) })
+      this
+        .props
+        .navigation
+        .dispatch(resetAction)
+    } else {
+      this.setState({
+        counter: (this.state.counter - 1)
+      })
     }
   };
 
@@ -82,49 +99,19 @@ export default class Result extends React.Component {
     );
   }
 
-
   render() {
     return (
       <View style={styles.container}>
 
         <Text style={styles.headerText}>
           Yarışma Bitti Sonuçlarınız
-          </Text>
+        </Text>
         <Accordion
           sections={this.props.navigation.state.params.userResultObj.Questions}
           renderHeader={this._renderHeader}
-          renderContent={this._renderContent}
-        />
+          renderContent={this._renderContent}/>
       </View>
     )
   }
 
 }
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-
-    padding: 10,
-
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  headerText: {
-    fontSize: 50,
-    fontWeight: 'bold',
-    padding: 10
-  },
-  gotoQuestions: {
-    alignItems: 'center',
-    backgroundColor: '#32CD32',
-    width: 250,
-    padding: 10,
-    margin: 5
-  }
-});
