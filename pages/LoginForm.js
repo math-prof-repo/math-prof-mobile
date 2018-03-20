@@ -53,7 +53,6 @@ export default class Login extends React.Component {
                 <TouchableOpacity
                     style={styles.buttonContainer}
                     onPress={() => {this.onPress(this.state.name)
-                    //this.methodPost('http://www.yeslimit.somee.com/api/user');
                 }}>
                     <Text style={styles.buttonTextLogin}>LOGIN</Text>
                 </TouchableOpacity>

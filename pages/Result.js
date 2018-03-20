@@ -1,11 +1,12 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet,FlatList} from 'react-native';
 import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 import {NavigationActions} from 'react-navigation';
 
 var axios = require('axios');
 import Accordion from 'react-native-collapsible/Accordion';
 import styles from '.././styles/style';
+import {Constants} from '../imports/imported';
 
 export default class Result extends React.Component {
   static navigationOptions = {
@@ -28,7 +29,7 @@ export default class Result extends React.Component {
   }
 
   componentDidMount() {
-    this.methodGet('http://www.yeslimit.somee.com/api/result');
+    this.methodGet(Constants.serviceUrl + 'result');
     this.state = {
       counter: 10
     };
@@ -75,21 +76,9 @@ export default class Result extends React.Component {
     clearInterval(this.timer)
   };
 
-  _renderHeader(section) {
-    return (
-      <View>
-        <Text style={styles.titleText}>{section.Player}</Text>
-      </View>
-    );
-  }
-
-  _renderContent(section) {
-    return (
-      <View>
-        <Text>{section.Player}</Text>
-      </View>
-    );
-  }
+  _renderItem = ({item}) => (
+    <MyText text={`${item.Player}`}></MyText>
+  );
 
   render() {
     if (this.state.loader) {
@@ -105,14 +94,26 @@ export default class Result extends React.Component {
           <Text style={styles.headerText}>
             Yarışma Bitti
           </Text>
-          <Accordion
-            sections={this.state.result}
-            renderHeader={this._renderHeader}
-            renderContent={this._renderContent}/>
+          <FlatList
+            data={this.state.result}
+            renderItem={(item) => this._renderItem(item)}
+            keyExtractor={(item, index) => index}/>
         </View>
       )
     }
 
   }
 
+}
+
+const MyText = (props) => {
+  return (
+    <Text
+      style={{
+      'backgroundColor': props.backcolor,
+      'fontSize': 15
+    }}>
+      {props.text}
+    </Text>
+  )
 }

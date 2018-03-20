@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import styles from '.././styles/style';
+import { Constants } from '../imports/imported';
 
 var axios = require('axios');
 let questionCount = 0;
@@ -41,7 +42,7 @@ export default class Quiz extends React.Component {
   }
 
   componentDidMount() {
-    this.methodGet('http://www.yeslimit.somee.com/api/values');
+    this.methodGet(Constants.serviceUrl+'values');
     this.userName = this.props.navigation.state.params.userName;
   }
 
@@ -60,6 +61,17 @@ export default class Quiz extends React.Component {
 
   };
   setCevap(userAnswer) {
+    this.question.userAnswerTime=this.state.count;
+    if (this.question.Questions[this.state.soruSayac].Answer === userAnswer) {
+      this.question.Questions[this.state.soruSayac].userAnswer = userAnswer;
+      this.question.Questions[this.state.soruSayac].isTrue = "true";
+      
+    } else {
+      this.question.Questions[this.state.soruSayac].userAnswer = userAnswer;
+      this.question.Questions[this.state.soruSayac].isTrue = "false";
+    }
+    
+   
     if (this.state.soruSayac + 1 == this.questionCount) {
       this.stopTimer();
       clearInterval(this.timer);
@@ -78,15 +90,7 @@ export default class Quiz extends React.Component {
         .navigation
         .dispatch(resetAction)
     } else {
-      if (this.question.Questions[this.state.soruSayac].Answer === userAnswer) {
-        this.question.Questions[this.state.soruSayac].userAnswer = userAnswer;
-        this.question.Questions[this.state.soruSayac].isTrue = "true";
-      } else {
-        this.question.Questions[this.state.soruSayac].userAnswer = userAnswer;
-        this.question.Questions[this.state.soruSayac].isTrue = "false";
-      }
       var i = this.state.soruSayac;
-      //this.question.Questions[i + 1].userAnswerTime=this.state.count;
       this.setState({
         soruSayac: i + 1,
         repos: this.question.Questions[i + 1]
@@ -105,6 +109,7 @@ export default class Quiz extends React.Component {
   tick() {
     if (this.state.count == 0) {
       this.stopTimer();
+      console.log(this.question)
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [NavigationActions.navigate({

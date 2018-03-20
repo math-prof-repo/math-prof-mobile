@@ -6,7 +6,7 @@ import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 var axios = require('axios');
 
 import {StackNavigator} from 'react-navigation';
-import {Quiz, Result, UserResult, HomeScreen, Login} from './imports/imported';
+import {Quiz, Result, UserResult, HomeScreen, Login,Constants} from './imports/imported';
 import styles from './styles/style';
 
 class MathProf extends React.Component {
@@ -23,7 +23,7 @@ class MathProf extends React.Component {
       or
 
     */
-    this.methodGet('http://www.yeslimit.somee.com/api/user');
+    this.methodGet(Constants.serviceUrl+'user');
 
     //this.props.navigation.navigate('Home');
 

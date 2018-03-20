@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 5,
         backgroundColor: '#2980b9',
-        paddingVertical: 15
+        paddingVertical: 15,
+        borderRadius:10
     },
     soruText: {
         fontSize: 20

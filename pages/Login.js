@@ -70,7 +70,7 @@ export default class Login extends React.Component {
                     <Image style={styles.logo}/></View>
                 <View style={styles.formContainer}>
                     <LoginForm
-                        onPress={(name) => this.methodPost('http://www.yeslimit.somee.com/api/user', name)}/>
+                        onPress={(name) => this.methodPost(Constants.serviceUrl+'user', name)}/>
                 </View>
             </KeyboardAvoidingView>
         );
