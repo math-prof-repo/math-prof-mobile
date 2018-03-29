@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet,FlatList} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, FlatList,ScrollView} from 'react-native';
 import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 import {NavigationActions} from 'react-navigation';
 
@@ -7,6 +7,7 @@ var axios = require('axios');
 import Accordion from 'react-native-collapsible/Accordion';
 import styles from '.././styles/style';
 import {Constants} from '../imports/imported';
+import {List, ListItem, ListView, Text} from 'react-native-elements';
 
 export default class Result extends React.Component {
   static navigationOptions = {
@@ -30,6 +31,7 @@ export default class Result extends React.Component {
 
   componentDidMount() {
     this.methodGet(Constants.serviceUrl + 'result');
+    this.userName = this.props.navigation.state.params.userName;
     this.state = {
       counter: 10
     };
@@ -57,7 +59,7 @@ export default class Result extends React.Component {
         actions: [NavigationActions.navigate({
             routeName: 'Quiz',
             params: {
-              userName: this.props.navigation.state.params.userName
+              userName: this.userName
             }
           })]
       })
@@ -81,6 +83,7 @@ export default class Result extends React.Component {
   );
 
   render() {
+    console.log(this.state.result);
     if (this.state.loader) {
       return (
         <View style={styles.container}>
@@ -90,14 +93,23 @@ export default class Result extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-
           <Text style={styles.headerText}>
             Yarışma Bitti
           </Text>
-          <FlatList
-            data={this.state.result}
-            renderItem={(item) => this._renderItem(item)}
-            keyExtractor={(item, index) => index}/>
+          <View>
+            <ScrollView>
+              <List>
+                {this.state.result.map((item, i) => (<ListItem
+                    key={i}
+                    title={i.toString()+"  "+item.Player}
+                    rightTitle={item.QuestionCount.toString()}
+                    rightIcon={{
+                    name: item.Player===this.userName?'person':'none'
+                  }}/>))
+}
+              </List>
+            </ScrollView>
+          </View>
         </View>
       )
     }

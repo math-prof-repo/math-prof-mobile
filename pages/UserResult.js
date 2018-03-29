@@ -1,11 +1,12 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, FlatList,ScrollView} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 var axios = require('axios');
 import Accordion from 'react-native-collapsible/Accordion';
 import styles from '.././styles/style';
-import { Constants } from '../imports/imported';
-export default class Result extends React.Component {
+import {Constants} from '../imports/imported';
+import {List, ListItem, ListView,Text} from 'react-native-elements';
+export default class UserResult extends React.Component {
   static navigationOptions = {
     title: 'Yarışma Bitti mi acaba'
   };
@@ -30,7 +31,7 @@ export default class Result extends React.Component {
     this.userResultObj = this.props.navigation.state.params.userResultObj;
     this.userName = this.props.navigation.state.params.userName;
     this.timer = setInterval(this.tick.bind(this), 1000);
-    this.methodPost(Constants.serviceUrl+ "answer");
+    this.methodPost(Constants.serviceUrl + "answer");
   }
 
   methodPost(param) {
@@ -81,30 +82,29 @@ export default class Result extends React.Component {
 
   stopTimer() {
     clearInterval(this.timer)
-  };
-
-  _renderItem = ({item, textColor}) => (
-    <MyText
-      text1={`Soru: ${item.QuestionDesc}`}
-      text2={`Doğru Cevap:${item.Answer}`}
-      text3={`Senin Cevabın: ${item.userAnswer}`}
-      backcolor={item.isTrue === "true"
-      ? "green"
-      : "red"}></MyText>
-  );
+  };  
 
   render() {
     const userResult = this.props.navigation.state.params.userResultObj.Questions;
     return (
       <View style={styles.container}>
 
-        <Text style={styles.headerText}>
-          Yarışma Bitti Sonuçlarınız
-        </Text>
-        <FlatList
-          data={userResult}
-          renderItem={(item) => this._renderItem(item)}
-          keyExtractor={(item, index) => index}/>
+        <Text h4>Yarışma Bitti Sonuçlarınız</Text>
+                  <View>
+        <ScrollView>
+        <List>
+          {userResult.map((item, i) => (<ListItem
+            key={i}
+            title={'Soru : '+ item.QuestionDesc +' = ' + item.Answer}
+            rightTitle={item.userAnswer}
+            rightIcon={{name:'person',color:item.isTrue=== "true" ?'green':'red'}}
+            leftIcon={{
+            name: item.isTrue=== "true" ? 'check-circle' : 'cancel',color:item.isTrue=== "true" ?'green':'red'
+          }}/>))
+          }
+        </List>
+        </ScrollView>
+        </View>
       </View>
     )
   }
@@ -118,7 +118,7 @@ const MyText = (props) => {
         <Text
           style={{
           'backgroundColor': props.backcolor,
-          'fontSize': 15,
+          'fontSize': 15
         }}>
           {props.text1}
         </Text>
@@ -127,7 +127,7 @@ const MyText = (props) => {
         <Text
           style={{
           'backgroundColor': props.backcolor,
-          'fontSize': 15,
+          'fontSize': 15
         }}>
           {props.text2}
         </Text>
@@ -136,7 +136,7 @@ const MyText = (props) => {
         <Text
           style={{
           'backgroundColor': props.backcolor,
-          'fontSize': 15,
+          'fontSize': 15
         }}>
           {props.text3}
         </Text>
@@ -146,19 +146,14 @@ const MyText = (props) => {
 }
 
 const stil = StyleSheet.create({
-  section: {
-    flex: 3,
-  },
-  section2: {
-    flex: 4
-  },
-  section3: {
-    flex: 5
-  },
   resultContainer: {
     flex: 1,
     flexDirection: 'row',
-    paddingBottom:1
+    paddingBottom: 1
+  },
+  subtitleView: {
+    flexDirection: 'column',
+    paddingLeft: 10,
+    paddingTop: 5,
   }
-
 })

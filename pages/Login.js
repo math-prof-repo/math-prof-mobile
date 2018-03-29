@@ -12,6 +12,7 @@ var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 import {NavigationActions} from 'react-navigation';
 import styles from '.././styles/style';
+import {Constants} from '../imports/imported';
 var axios = require('axios');
 
 export default class Login extends React.Component {
