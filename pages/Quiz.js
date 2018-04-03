@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import styles from '.././styles/style';
-import { Constants } from '../imports/imported';
+import {Constants} from '../imports/imported';
+import {Icon} from 'react-native-elements';
+import BackgroundView from './BackgroundView';
 
 var axios = require('axios');
 let questionCount = 0;
@@ -42,7 +44,7 @@ export default class Quiz extends React.Component {
   }
 
   componentDidMount() {
-    this.methodGet(Constants.serviceUrl+'values');
+    this.methodGet(Constants.serviceUrl + 'values');
     this.userName = this.props.navigation.state.params.userName;
   }
 
@@ -61,17 +63,16 @@ export default class Quiz extends React.Component {
 
   };
   setCevap(userAnswer) {
-    this.question.userAnswerTime=this.state.count;
+    this.question.userAnswerTime = this.state.count;
     if (this.question.Questions[this.state.soruSayac].Answer === userAnswer) {
       this.question.Questions[this.state.soruSayac].userAnswer = userAnswer;
       this.question.Questions[this.state.soruSayac].isTrue = "true";
-      
+
     } else {
       this.question.Questions[this.state.soruSayac].userAnswer = userAnswer;
       this.question.Questions[this.state.soruSayac].isTrue = "false";
     }
-    
-   
+
     if (this.state.soruSayac + 1 == this.questionCount) {
       this.stopTimer();
       clearInterval(this.timer);
@@ -132,44 +133,123 @@ export default class Quiz extends React.Component {
   };
   render() {
     return (
-      <View style={styles.quizContainer}>
-        <Text style={styles.soruText}>Kalan Süre {this.state.count}</Text>
-        <Text style={styles.soruText}>Soru {this.state.soruSayac + 1}</Text>
-        <Text style={styles.soruDesc}>{this.state.repos.QuestionDesc}</Text>
-        <TouchableOpacity
-          style={styles.options}
-          onPress={() => this.setCevap(this.state.repos.Option1)}
-          color="#841584">
-          <Text>
-            {this.state.repos.Option1}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.options}
-          onPress={() => this.setCevap(this.state.repos.Option2)}
-          color="#841584">
-          <Text>
-            {this.state.repos.Option2}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.options}
-          onPress={() => this.setCevap(this.state.repos.Option3)}
-          color="#841584">
-          <Text>
-            {this.state.repos.Option3}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.options}
-          onPress={() => this.setCevap(this.state.repos.Option4)}
-          color="#841584">
-          <Text>
-            {this.state.repos.Option4}
-          </Text>
-        </TouchableOpacity>
+      <BackgroundView style={styles.quizContainer}>
+        <View style={stil.top}>
+          <View style={stil.view1}>
+            <Text style={styles.soruText}>Soru {this.state.soruSayac + 1}
+              / {this.questionCount}</Text>
+          </View>
+          <View style={stil.view2}>
+            <View
+              style={{
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Icon name="access-time"/>
+            </View>
 
-      </View>
+            <Text style={styles.soruText}>{this.state.count}</Text>
+
+          </View>
+        </View>
+        <View style={stil.center}>
+          <Text style={styles.soruDesc}>{this.state.repos.QuestionDesc}</Text>
+        </View>
+        <View style={stil.bottom}>
+          <TouchableOpacity
+            style={styles.options}
+            onPress={() => this.setCevap(this.state.repos.Option1)}
+            color="#841584">
+            <Text style={styles.optionText}>
+              {this.state.repos.Option1}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.options}
+            onPress={() => this.setCevap(this.state.repos.Option2)}
+            color="#841584">
+            <Text style={styles.optionText}>
+              {this.state.repos.Option2}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.options}
+            onPress={() => this.setCevap(this.state.repos.Option3)}
+            color="#841584">
+            <Text style={styles.optionText}>
+              {this.state.repos.Option3}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.options}
+            onPress={() => this.setCevap(this.state.repos.Option4)}
+            color="#841584">
+            <Text style={styles.optionText}>
+              {this.state.repos.Option4}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+      </BackgroundView>
     );
   };
 }
+
+const stil = StyleSheet.create({
+  top: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  center: {
+    flex: 1,
+    paddingLeft: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    width: "100%",
+    shadowColor: '#30C1DD',
+    shadowRadius: 10,
+    shadowOpacity: 0.6,
+    elevation: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    }
+  },
+  bottom: {
+    flex: 3,
+    paddingLeft: 10,
+    paddingBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  view1: {
+    flex: 1,
+    paddingLeft: 20,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da'
+  },
+  view2: {
+    flex: 1,
+    paddingRight: 20,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da'
+  },
+  nestedButtonView: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
+})

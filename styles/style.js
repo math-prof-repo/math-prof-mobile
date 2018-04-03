@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     },
     quizContainer: {
         flex: 1,
+        flexDirection: 'column',
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center'
@@ -70,13 +71,24 @@ const styles = StyleSheet.create({
         margin: 5,
         backgroundColor: '#2980b9',
         paddingVertical: 15,
-        borderRadius:10
+        borderRadius:10,
+        shadowColor: '#30C1DD',
+        shadowRadius: 10,
+        shadowOpacity: 0.6,
+        elevation: 8,
+        shadowOffset: {width: 0,height: 4}
     },
     soruText: {
-        fontSize: 20
+        fontSize: 20,
+        textAlign: 'left'
+
     },
     soruDesc: {
-        fontSize: 40
+        fontSize: 60,
+    },
+    optionText:{
+        fontSize: 20,
+        color:'white'
     },
     gotoQuestions: {
         alignItems: 'center',

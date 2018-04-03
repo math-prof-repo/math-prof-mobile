@@ -6,6 +6,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import styles from '.././styles/style';
 import {Constants} from '../imports/imported';
 import {List, ListItem, ListView,Text} from 'react-native-elements';
+
 export default class UserResult extends React.Component {
   static navigationOptions = {
     title: 'Yarışma Bitti mi acaba'
@@ -93,7 +94,7 @@ export default class UserResult extends React.Component {
                   <View>
         <ScrollView>
         <List>
-          {userResult.map((item, i) => (<ListItem
+          {userResult.map((item, i) => (<ListItem containerStyle={stil.listItem}
             key={i}
             title={'Soru : '+ item.QuestionDesc +' = ' + item.Answer}
             rightTitle={item.userAnswer}
@@ -155,5 +156,19 @@ const stil = StyleSheet.create({
     flexDirection: 'column',
     paddingLeft: 10,
     paddingTop: 5,
+  },
+  listItem:{
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    width: "100%",
+    shadowColor: '#30C1DD',
+    shadowRadius: 10,
+    shadowOpacity: 0.6,
+    elevation: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    }
   }
 })
