@@ -55,9 +55,6 @@ class MathProf extends React.Component {
     return (
       <View style={styles.container}>
         <Bubbles size={10} color="#FFF"/>
-        <Bars size={10} color="#FDAAFF"/>
-        <Pulse size={10} color="#52AB42"/>
-        <DoubleBounce size={10} color="#1CAFF6"/>
       </View>
     )
   }

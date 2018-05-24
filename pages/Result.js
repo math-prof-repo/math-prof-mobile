@@ -30,8 +30,9 @@ export default class Result extends React.Component {
   }
 
   componentDidMount() {
-    this.methodGet(Constants.serviceUrl + 'result');
     this.userName = this.props.navigation.state.params.userName;
+    this.gameId= this.props.navigation.state.params.gameId;
+    this.methodGet(Constants.serviceUrl + 'result');
     this.state = {
       counter: 10
     };
@@ -40,8 +41,9 @@ export default class Result extends React.Component {
 
   methodGet(param) {
     let self = this;
+    alert(self.gameId);
     axios
-      .get(param + "?gameId=0")
+      .get(param + "?gameId="+self.gameId)
       .then((response) => {
         this.setState({result: response.data, loader: false});
       })
@@ -104,7 +106,7 @@ export default class Result extends React.Component {
                     title={i.toString()+"  "+item.Player}
                     rightTitle={item.QuestionCount.toString()}
                     rightIcon={{
-                    name: item.Player===this.userName?'person':'none'
+                    name: 'person'
                   }}/>))
 }
               </List>

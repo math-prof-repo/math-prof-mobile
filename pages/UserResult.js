@@ -61,12 +61,14 @@ export default class UserResult extends React.Component {
   tick() {
     if (this.state.counter == 0) {
       this.stopTimer();
+      
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [NavigationActions.navigate({
             routeName: 'Result',
             params: {
-              userName: this.userName
+              userName: this.userName,
+              gameId: this.userResultObj.GameId
             }
           })]
       })
