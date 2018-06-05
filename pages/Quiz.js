@@ -55,7 +55,7 @@ export default class Quiz extends React.Component {
         this.startTimer();
         this.question = response.data;
         this.questionCount = response.data.Questions.length;
-        this.setState({loaded: true, repos: this.question.Questions[0]});
+        this.setState({loaded: true, repos: this.question.Questions[0],count:response.data.RemainingTime});
       })
       .catch((error) => {
         console.log(error);

@@ -25,7 +25,8 @@ export default class Result extends React.Component {
     ];
     this.state = {
       result: result,
-      loader: true
+      loader: true,
+      counter:10
     };
   }
 
@@ -33,15 +34,11 @@ export default class Result extends React.Component {
     this.userName = this.props.navigation.state.params.userName;
     this.gameId= this.props.navigation.state.params.gameId;
     this.methodGet(Constants.serviceUrl + 'result');
-    this.state = {
-      counter: 10
-    };
     this.timer = setInterval(this.tick.bind(this), 1000);
   }
 
   methodGet(param) {
     let self = this;
-    alert(self.gameId);
     axios
       .get(param + "?gameId="+self.gameId)
       .then((response) => {
@@ -85,7 +82,7 @@ export default class Result extends React.Component {
   );
 
   render() {
-    console.log(this.state.result);
+    //console.log(this.state.result);
     if (this.state.loader) {
       return (
         <View style={styles.container}>
